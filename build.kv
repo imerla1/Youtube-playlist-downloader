@@ -1,0 +1,36 @@
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
+
+
+
+YoutubeDownloader
+
+<YoutubeDownloader>:
+    urls_input: playlist_in
+    TextInput:
+        id: playlist_in
+        size_hint: (None, None)
+        width:root.width/1.5
+        height: 40
+
+        multiline: False
+
+        pos: (root.width/2-150, root.height-270)
+    Label:
+        text: "Playlist Link"
+        pos: (69, root.height-300)
+        font_size: 40
+        color: 1,0,0,1
+    Screen:
+        Image:
+            source: 'downlogo.png'
+            size_hint: None, None
+            size: 259, 194
+            pos: (root.width/2-117, root.height-200)
+
+    Button:
+        text: 'Download'
+        pos: (root.width/2-25, root.height-340)
+        width:90
+        height:50
+        on_press: root.download()
