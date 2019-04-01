@@ -15,6 +15,8 @@ from kivy.uix.label import Label
 import os
 from bs4 import BeautifulSoup
 from pytube import YouTube
+from tqdm import tqdm
+
 
 
 def make_subdir(): # This will make subdirectory Where Downloaded Songs will be stored
@@ -27,6 +29,7 @@ def make_subdir(): # This will make subdirectory Where Downloaded Songs will be 
 make_subdir()
 Window.fullscreen = False
 Window.clearcolor = (1, 1, 1, 1)
+abs_path = os.getcwd() + '\Playlist'
 
 class YoutubeDownloader(Widget):
     urls_input = ObjectProperty()
@@ -57,9 +60,25 @@ class YoutubeDownloader(Widget):
 
     def download(self, *args): # With this function we Download Musics
         if self.valid_url():
-            self.urllist_ = []
+            wd = YoutubeDownloader()
+            down_wind = Popup(
+                title='Download!', content=Label(
+                    text='Please wait download in progress'), size_hint=(
+                    0.8, 0.2))
+            down_wind.open()
+
             self.parse_html
-            print(self.urllist_)
+
+
+
+            for link in tqdm(self.urllist_, desc='Download'):
+                try:
+                    YouTube(link).streams.first().download(output_path=abs_path)
+                except:
+                    continue
+            self.urllist_ = []
+
+
 
 
         else:
